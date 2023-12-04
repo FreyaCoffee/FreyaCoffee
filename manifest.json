@@ -1,0 +1,16 @@
+{
+    "name": "Freya Coffee",
+    "short_name": "Freya",
+    "icons": [
+      {
+        "src": "https://i.imgur.com/6kkP3zu.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "start_url": "/",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff"
+  }
+  
