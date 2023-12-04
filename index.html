@@ -5,33 +5,70 @@
   <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="manifest" href="/manifest.json">
   <title>İki Sekmeli Site</title>
   <style>
     /* İhtiyacınıza göre stillendirme yapabilirsiniz */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
     .tab-content {
       display: none;
+      text-align: center;
+      padding-bottom: 50px; /* Sekmelerin içeriği için alt boşluk */
     }
     .active {
       display: block;
     }
+    .tab-buttons {
+  position: fixed;
+  bottom: 0;
+  background-color: #ffffff; /* Canlı ve eğlenceli bir renk */
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Butonları sağa ve sola hizalamak için */
+  padding: 10px 0;
+  box-shadow: 0px -3px 10px rgba(0, 0, 0, 0.1); /* Hafif bir gölge */
+  font-family: 'Arial', sans-serif; /* Fontu belirledik */
+}
+
+.tab-buttons button {
+  flex-grow: 1; /* Butonların eşit genişlikte olması */
+  margin: 0 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #006400
+; /* Beyaz butonlar */
+  color: #ffffff; /* Buton metni için canlı renk */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Düğme üzerine gelince geçiş efekti */
+}
+
+.tab-buttons button:hover {
+  background-color: #cccccc; /* Hover rengi */
+  color: #ffffff; /* Hover'da metin rengi */
+}
+
   </style>
 </head>
 <body>
-
-<!-- Sekme butonları -->
-<button onclick="openTab('tab1')">Sekme 1</button>
-<button onclick="openTab('tab2')">Sekme 2</button>
 
 <!-- Sekme içerikleri -->
 <div id="tab1" class="tab-content active">
   <!-- İlk HTML dosyasının içeriği buraya gelecek -->
   <!-- Örnek: -->
+  <h1>3 Seçim Et, Çarxı Döndər Endirimdən Yararlan</h1>
   <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>3 Seçim Et, Çarxı Döndər Endirimdən Yararlan</title>
+  <title>Yiyecek Siparişi</title>
   <style>
     img {
       width: 100px;
@@ -41,8 +78,6 @@
   </style>
 </head>
 <body>
-  <h1>Hoş Geldiniz!</h1>
-  
   <h2>Kahve Seçenekleri:</h2>
   <img src="https://i.imgur.com/RH3wuh5.png" alt="Americano - $4" onclick="ekleFiyat('kahve1')">
   <img src="https://i.imgur.com/DG6O2hU.png" alt="Latte - $5" onclick="ekleFiyat('kahve2')">
@@ -54,15 +89,15 @@
   <h2>Sandviç Seçenekleri:</h2>
   <img src="https://i.imgur.com/CyMceKZ.png" alt="Croissant Omlet - $7" onclick="ekleFiyat('sandvic1')">
   <img src="https://i.imgur.com/wCY2Mm5.png" alt="Croissant Chicken - $7" onclick="ekleFiyat('sandvic2')">
-  <img src="https://i.imgur.com/B3y8uTi.png" alt="Bagel Chicken - $4,5" onclick="ekleFiyat('sandvic2')">
-  <img src="https://i.imgur.com/yeEUxuz.png" alt="Bagel Omlet - $4,5" onclick="ekleFiyat('sandvic2')">
-  <img src="https://i.imgur.com/ATgWChp.png" alt="Cold Sandwich - $4" onclick="ekleFiyat('sandvic2')">
+  <img src="https://i.imgur.com/B3y8uTi.png" alt="Bagel Chicken - $4,5" onclick="ekleFiyat('sandvic3')">
+  <img src="https://i.imgur.com/yeEUxuz.png" alt="Bagel Omlet - $4,5" onclick="ekleFiyat('sandvic4')">
+  <img src="https://i.imgur.com/ATgWChp.png" alt="Cold Sandwich - $4" onclick="ekleFiyat('sandvic5')">
 
   <h2>Tatlı Seçenekleri:</h2>
   <img src="https://i.imgur.com/6UXnTzO.png" alt="San Sebastian - $7" onclick="ekleFiyat('tatli1')">
   <img src="https://i.imgur.com/eaDxhEg.png" alt="Brownie - $3" onclick="ekleFiyat('tatli2')">
-  <img src="https://i.imgur.com/cdl9VFA.png" alt="Croissant - $2" onclick="ekleFiyat('tatli2')">
-  <img src="https://i.imgur.com/JlEX6pR.png" alt="Croissant Chocolate- $3" onclick="ekleFiyat('tatli2')">
+  <img src="https://i.imgur.com/cdl9VFA.png" alt="Croissant - $2" onclick="ekleFiyat('tatli3')">
+  <img src="https://i.imgur.com/JlEX6pR.png" alt="Croissant Chocolate- $3" onclick="ekleFiyat('tatli4')">
 
   <br><br>
   <p id="toplamFiyat"></p>
@@ -93,55 +128,56 @@
       for (let urun in secilenUrunler) {
         if (urun === 'kahve1') {
           toplamFiyat += secilenUrunler[urun] * 4;
-          siparisDetay += `Americano: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Americano: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'kahve2') {
           toplamFiyat += secilenUrunler[urun] * 5;
-          siparisDetay += `Latte: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Latte: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'kahve3') {
           toplamFiyat += secilenUrunler[urun] * 5;
-          siparisDetay += `Cappuccino: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Cappuccino: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'kahve4') {
           toplamFiyat += secilenUrunler[urun] * 3,5;
-          siparisDetay += `Espresso: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Espresso: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'kahve5') {
           toplamFiyat += secilenUrunler[urun] * 5,5;
-          siparisDetay += `Mocha: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Mocha: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'kahve6') {
           toplamFiyat += secilenUrunler[urun] * 5;
-          siparisDetay += `Raf: ${secilenUrunler[urun]} adet<br>`
+          siparisDetay += `Raf: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'sandvic1') {
           toplamFiyat += secilenUrunler[urun] * 7;
-          siparisDetay += `Croissant Omlet: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Croissant Omlet: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'sandvic2') {
           toplamFiyat += secilenUrunler[urun] * 7;
-          siparisDetay += `Croissant Chicken: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Croissant Chicken: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'sandvic3') {
           toplamFiyat += secilenUrunler[urun] * 4,5;
-          siparisDetay += `Bagel Chicken: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Bagel Chicken: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'sandvic4') {
           toplamFiyat += secilenUrunler[urun] * 4,5;
-          siparisDetay += `Bagel Omlet: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Bagel Omlet: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'sandvic5') {
           toplamFiyat += secilenUrunler[urun] * 4;
-          siparisDetay += `Cold Sandwich: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Cold Sandwich: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'tatli1') {
           toplamFiyat += secilenUrunler[urun] * 7;
-          siparisDetay += `San Sebastian: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `San Sebastian: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'tatli2') {
           toplamFiyat += secilenUrunler[urun] * 3;
-          siparisDetay += `Brownie: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Brownie: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'tatli3') {
           toplamFiyat += secilenUrunler[urun] * 2;
-          siparisDetay += `Croissant: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Croissant: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         } else if (urun === 'tatli4') {
           toplamFiyat += secilenUrunler[urun] * 3;
-          siparisDetay += `Croissant Chocolate: ${secilenUrunler[urun]} adet<br>`;
+          siparisDetay += `Croissant Chocolate: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         }
         // Diğer ürünlerin fiyatları da buraya eklenebilir.
       }
       document.getElementById('toplamFiyat').innerHTML = "Toplam Fiyat: $" + toplamFiyat.toFixed(2);
       document.getElementById('siparisDetay').innerHTML = siparisDetay;
     }
+    
   </script>
 </body>
 </html>
@@ -152,7 +188,7 @@
 <div id="tab2" class="tab-content">
   <!-- İkinci HTML dosyasının içeriği buraya gelecek -->
   <!-- Örnek: -->
-  <h1>Sekme 2 İçeriği</h1>
+  <h1></h1>
   <!DOCTYPE html>
   <html lang="en">
   <head>
@@ -354,10 +390,16 @@
               return array;
           }
       </script>
+      
 
   </body>
   </html>
-  
+</div>
+
+<!-- Sekme butonları -->
+<div class="tab-buttons">
+  <button onclick="openTab('tab1')">Menünü Yarad</button>
+  <button onclick="openTab('tab2')">Çarxı Döndər</button>
 </div>
 
 <script>
