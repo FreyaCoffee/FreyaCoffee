@@ -98,7 +98,7 @@
   <img src="https://i.imgur.com/eaDxhEg.png" alt="Brownie - $3" onclick="ekleFiyat('tatli2')">
   <img src="https://i.imgur.com/cdl9VFA.png" alt="Croissant - $2" onclick="ekleFiyat('tatli3')">
   <img src="https://i.imgur.com/JlEX6pR.png" alt="Croissant Chocolate- $3" onclick="ekleFiyat('tatli4')">
-
+  <img src="https://i.imgur.com/pwNzjRu.png" alt="Magnolia- $7" onclick="ekleFiyat('tatli5')">
   <br><br>
   <p id="toplamFiyat"></p>
   <p id="siparisDetay"></p>
@@ -171,6 +171,9 @@
         } else if (urun === 'tatli4') {
           toplamFiyat += secilenUrunler[urun] * 3;
           siparisDetay += `Croissant Chocolate: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
+        }  else if (urun === 'tatli5') {
+          toplamFiyat += secilenUrunler[urun] * 7;
+          siparisDetay += `Magnolia: ${secilenUrunler[urun]} adet <span onclick="azaltFiyat('${urun}')" style="cursor: pointer; color: red;">&#10060;</span><br>`;
         }
         // Diğer ürünlerin fiyatları da buraya eklenebilir.
       }
@@ -188,7 +191,7 @@
 <div id="tab2" class="tab-content">
   <!-- İkinci HTML dosyasının içeriği buraya gelecek -->
   <!-- Örnek: -->
-  <h1>3-lü Set Yarad, Çarxı döndər</h1>
+  <h1>3-lü Setini Seç, Endirim və Hədiyyələri Qazan</h1>
   <!DOCTYPE html>
   <html lang="en">
   <head>
